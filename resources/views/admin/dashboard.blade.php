@@ -14,7 +14,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">Courses</h5>
-                                    <a href="" class="card-link btn btn-sm btn-primary">Manage</a>
+                                    <a href="{{route('courses.index')}}" class="card-link btn btn-sm btn-primary">Manage</a>
                                 </div>
                             </div>
                         </div>

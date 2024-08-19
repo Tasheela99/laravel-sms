@@ -17,19 +17,25 @@ class LessonController extends Controller
 
     public function store(Request $request)
     {
-
-              $request->validate([
+        $request->validate([
             'course_id' => 'required|exists:courses,id',
             'title' => 'required|string|max:255',
-            'content' => 'required|string',
+            'contents' => 'required|string',
         ]);
 
         Lesson::create([
             'course_id' => $request->course_id,
             'title' => $request->title,
-            'content' => $request->content,
+            'contents' => $request->contents,
         ]);
 
         return redirect()->route('lessons.index')->with('success', 'Lesson created successfully.');
+    }
+
+    public function delete($id)
+    {
+        $lesson = Lesson::findOrFail($id);
+        $lesson->delete();
+        return redirect()->back()->with('success', 'Lesson deleted successfully');
     }
 }

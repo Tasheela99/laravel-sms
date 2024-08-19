@@ -6,7 +6,6 @@
     </x-slot>
 
     <div class="py-12">
-        <!-- Create Lesson Form -->
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
                 <form action="{{ route('lessons.store') }}" method="POST">
@@ -24,12 +23,14 @@
 
                     <div class="mb-3">
                         <label for="title" class="form-label">Lesson Title</label>
-                        <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}" required>
+                        <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}"
+                               required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="content" class="form-label">Content</label>
-                        <textarea name="content" id="content" class="form-control" rows="5" required>{{ old('content') }}</textarea>
+                        <label for="contents" class="form-label">Content</label>
+                        <textarea name="contents" id="contents" class="form-control"
+                                  required>{{ old('contents') }}</textarea>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Create Lesson</button>
@@ -47,6 +48,7 @@
                         <th scope="col">Course Title</th>
                         <th scope="col">Lesson Title</th>
                         <th scope="col">Created At</th>
+                        <th scope="col">Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -56,6 +58,13 @@
                         <td>{{ $lesson->course->title }}</td>
                         <td>{{ $lesson->title }}</td>
                         <td>{{ $lesson->created_at->format('Y-m-d H:i') }}</td>
+                        <td>
+                            <form action="{{ route('lessons.delete', $lesson->id) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-link" onclick="return confirm('Are you sure you want to delete this lesson?')">Delete</button>
+                            </form>
+                        </td>
                     </tr>
                     @endforeach
                     </tbody>
